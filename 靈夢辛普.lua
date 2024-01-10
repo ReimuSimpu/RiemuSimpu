@@ -44,22 +44,25 @@ local function processListingInfo(uid, gems, item, version, shiny, amount, bough
 	
     if boughtStatus then
 	webcolor = tonumber(0x00ff00)
-	weburl = webhook
-        snipeMessage = snipeMessage .. " Just sniped ".. Library.Functions.Commas(amount) .."x "
+        snipeMessage = snipeMessage .. " just sniped ".. amount .."x "
         webContent = mention
 	if snipeNormal == true then
 	    weburl = normalwebhook
 	    snipeNormal = false
+	else
+	    weburl = webhook
 	end
     else
-	webContent = failMessage
 	webcolor = tonumber(0xff0000)
 	weburl = webhookFail
-	snipeMessage = snipeMessage .. " Failed to snipe ".. Library.Functions.Commas(amount) .."x "
+	snipeMessage = snipeMessage .. " failed to snipe ".. amount .."x "
 	if snipeNormal == true then
-	    weburl = normalwebhook
 	    snipeNormal = false
 	end
+    end
+
+    if not failMessage then
+	failMessage = "Success!"
     end
     
     snipeMessage = snipeMessage .. "**" .. versionStr
@@ -117,7 +120,19 @@ local function processListingInfo(uid, gems, item, version, shiny, amount, bough
                         name = "💎 GEM'S LEFT:",
                         value = string.format("%s", tostring(gemamount):reverse():gsub("%d%d%d", "%1,"):reverse()),
                     },
-                },
+                    {
+			name = "🎯 __*SNIPER INFO*__ 🎯",
+			value = "\n\n",
+                    },
+                    {
+			name = "⌛ STATUS:",
+			value = failMessage,
+                    },
+                    {
+			name = "🚀 PING:",
+			value = math.round(Players.LocalPlayer:GetNetworkPing() * 2000) .. "ms",
+                    },   
+		},
                 footer = {
                     icon_url = "https://cdn.discordapp.com/attachments/1122535236996182099/1189213923073871953/EmrJ9tNVcAIhVzB.png?ex=659d58c5&is=658ae3c5&hm=c55bc9b5323c6aa542d6a99b4e42c20a0255377566c3bc2d047f63bffce70b7e&", -- optional
                     text = "Touhou Sniper"
