@@ -74,7 +74,7 @@ local function processListingInfo(uid, gems, item, version, shiny, amount, bough
     snipeMessage = snipeMessage .. item .. "**"
     
     local message1 = {
-        content = webContent,
+        content = mention,
         embeds = {
             {
                 author = {
