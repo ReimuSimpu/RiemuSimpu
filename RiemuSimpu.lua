@@ -47,7 +47,7 @@ local function processListingInfo(uid, gems, item, version, shiny, amount, bough
 	
     if boughtStatus then
 	webcolor = tonumber(0x00ff00)
-        snipeMessage = snipeMessage .. " just sniped ".. amount .."x "
+        snipeMessage = snipeMessage .. " Just sniped ".. amount .."x "
         webContent = mention
 	if snipeNormal == true then
 	    weburl = normalwebhook
@@ -58,7 +58,7 @@ local function processListingInfo(uid, gems, item, version, shiny, amount, bough
     else
 	webcolor = tonumber(0xff0000)
 	weburl = webhookFail
-	snipeMessage = snipeMessage .. " failed to snipe ".. amount .."x "
+	snipeMessage = snipeMessage .. " Failed to snipe ".. amount .."x "
 	if snipeNormal == true then
 	    snipeNormal = false
 	end
