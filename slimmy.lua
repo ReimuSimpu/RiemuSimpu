@@ -148,14 +148,14 @@ Booths_Broadcast.OnClientEvent:Connect(function(username, message)
                 local class = tostring(listing["ItemData"]["class"])
                 local unitGems = gems/amount
                                  
-            if string.find(item, "Huge") and unitGems <= 100000 then
-                coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
-                return
-            elseif class == "Pet" then
-                local type = Library.Directory.Pets[item]
-                if type.exclusiveLevel and unitGems <= 15000 and item ~= "Banana" and item ~= "Coin" then
+            	if string.find(item, "Huge") and unitGems <= 100000 then
                     coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                     return
+            	elseif class == "Pet" then
+                    local type = Library.Directory.Pets[item]
+                    if type.exclusiveLevel and unitGems <= 15000 and item ~= "Banana" and item ~= "Coin" then
+                        coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
+                        return
                 elseif type.titanic and unitGems <= 10000000 then
                     coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                     return
@@ -163,16 +163,16 @@ Booths_Broadcast.OnClientEvent:Connect(function(username, message)
                     coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                     return
 		end
-            elseif class == "Egg" and unitGems <= 30000 then
-                coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
-                return
-            elseif item == "Crystal Key" and unitGems <= 10000 then
-                coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
-                return
-            elseif item == "Spinny Wheel Ticket" and unitGems <= 5000 then
-                coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
-                return  
-            elseif class == "Enchant" and unitGems <= 30000 then
+            	elseif class == "Egg" and unitGems <= 30000 then
+                    coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
+                    return
+            	elseif item == "Crystal Key" and unitGems <= 10000 then
+                    coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
+                    return
+            	elseif item == "Spinny Wheel Ticket" and unitGems <= 5000 then
+                    coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
+                    return  
+            	elseif class == "Enchant" and unitGems <= 30000 then
                 if string.find(item, "Chest Mimic") and unitGems <= 1000000 then
                     coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                     return
