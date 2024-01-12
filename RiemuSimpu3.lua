@@ -6,7 +6,8 @@ getgenv().normalwebhook = ""
 getgenv().snipeNormalPets = false
 repeat wait() until game:IsLoaded()
 if game.PlaceId == 15502339080 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/ReimuSimpu/RiemuSimpu/main/RiemuSimpu.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ReimuSimpu/RiemuSimpu/main/slimmy.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ReimuSimpu/RiemuSimpu/main/resourcelower.lua"))()
 else
     loadstring(game:HttpGet("https://raw.githubusercontent.com/ReimuSimpu/RiemuSimpu/main/RiemuSimpu2.lua"))()
 end
