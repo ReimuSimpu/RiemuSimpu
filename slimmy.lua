@@ -96,18 +96,18 @@ local function processListingInfo(uid, gems, item, version, shiny, amount, bough
                         value = string.format("%s", tostring(gemamount):reverse():gsub("%d%d%d", "%1,"):reverse()),
                     },
                     {
-			                  name = "🎯 __*SNIPER INFO*__ 🎯",
-			                  value = "\n\n",
+			name = "🎯 __*SNIPER INFO*__ 🎯",
+			value = "\n\n",
                     },
                     {
-			                  name = "⌛ STATUS:",
-			                  value = failMessage,
+			name = "⌛ STATUS:",
+			value = failMessage,
                     },
                     {
-			                  name = "🚀 PING:",
-			                  value = math.round(Players.LocalPlayer:GetNetworkPing() * 2000) .. "ms",
+			name = "🚀 PING:",
+			value = math.round(Players.LocalPlayer:GetNetworkPing() * 2000) .. "ms",
                     },   
-		            },
+		},
                 footer = {
                     text = "Touhou Sniper Slim"
                 }
