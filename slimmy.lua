@@ -64,10 +64,6 @@ local function processListingInfo(uid, gems, item, version, shiny, amount, bough
                 color = webcolor,
                 fields = {
                     {
-                        name = "🛒 __*PURCHASE INFO:*__ 🛒",
-                        value = "\n\n",
-                    },
-                    {
                         name = "🤑 PRICE:",
                         value = string.format("%s", tostring(gems):reverse():gsub("%d%d%d", "%1,"):reverse()),
                     },
@@ -80,28 +76,12 @@ local function processListingInfo(uid, gems, item, version, shiny, amount, bough
                         value = "||" .. tostring(boughtFrom) .. "||",
                     },
                     {
-                        name = "🔖 PETID:",
-                        value = "||" .. tostring(uid) .. "|| \n\n",
-                    },
-                    {
-                        name = "👥 __*USER INFO:*__ 👥",
-                        value = "\n\n",
-                    },
-                    {
                         name = "👤 USER:",
                         value = "||" .. game.Players.LocalPlayer.Name .. "||",
                     },
                     {
                         name = "💎 GEM'S LEFT:",
                         value = string.format("%s", tostring(gemamount):reverse():gsub("%d%d%d", "%1,"):reverse()),
-                    },
-                    {
-			name = "🎯 __*SNIPER INFO*__ 🎯",
-			value = "\n\n",
-                    },
-                    {
-			name = "⌛ STATUS:",
-			value = failMessage,
                     },
                     {
 			name = "🚀 PING:",
@@ -168,7 +148,6 @@ Booths_Broadcast.OnClientEvent:Connect(function(username, message)
                 local class = tostring(listing["ItemData"]["class"])
                 local unitGems = gems/amount
                                  
-            -- Pets
             if string.find(item, "Huge") and unitGems <= 100000 then
                 coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                 return
@@ -184,24 +163,18 @@ Booths_Broadcast.OnClientEvent:Connect(function(username, message)
                     coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                     return
 		end
-
-                -- Presents and Eggs
             elseif (item == "Titanic Christmas Present" or string.find(item, "2024 New Year")) and unitGems <= 30000 then
                 coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                 return
             elseif class == "Egg" and unitGems <= 30000 then
                 coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                 return
-
-                -- Items
             elseif item == "Crystal Key" and unitGems <= 10000 then
                 coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                 return
             elseif item == "Spinny Wheel Ticket" and unitGems <= 5000 then
                 coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
-                return
-
-                -- Enchants    
+                return  
             elseif class == "Enchant" and unitGems <= 30000 then
                 if string.find(item, "Chest Mimic") and unitGems <= 1000000 then
                     coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
