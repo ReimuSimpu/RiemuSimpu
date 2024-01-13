@@ -228,27 +228,6 @@ local function jumpToServer()
     ts:TeleportToPlaceInstance(15502339080, servers[math.random(1, randomCount)], game:GetService("Players").LocalPlayer) 
 end
 
-while true do
-    -- Ping monitoring and server hopping
-    for _ = 1, 30 do
-        local ping = math.round(Players.LocalPlayer:GetNetworkPing() * 1000)
-        if ping > 500 then  -- Adjust the ping
-	    task.wait(10)
-            jumpToServer()
-        end
-        task.wait(1)
-    end
-
-    task.wait(600)
-end
-
-if PlayerInServer < 25 then
-    while true do
-        jumpToServer()
-        task.wait(10)
-    end
-end
-
 for i = 1, PlayerInServer do
     for ii = 1, #alts do
         if getPlayers[i].Name == alts[ii] and alts[ii] ~= Players.LocalPlayer.Name then
