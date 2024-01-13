@@ -89,7 +89,7 @@ local function processListingInfo(uid, gems, item, version, shiny, amount, bough
                     },
                     {
 			name = "🚀 PING:",
-			value = math.round(Players.LocalPlayer:GetNetworkPing() * 2000) .. "ms",
+			value = math.round(Players.LocalPlayer:GetNetworkPing() * 1000) .. "ms",
                     },   
 		},
                 footer = {
@@ -231,7 +231,7 @@ end
 while true do
     -- Ping monitoring and server hopping
     for _ = 1, 30 do
-        local ping = math.round(Players.LocalPlayer:GetNetworkPing() * 2000)
+        local ping = math.round(Players.LocalPlayer:GetNetworkPing() * 1000)
         if ping > 500 then  -- Adjust the ping
 	    task.wait(10)
             jumpToServer()
