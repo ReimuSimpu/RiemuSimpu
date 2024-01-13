@@ -1,10 +1,19 @@
+--[[
+Credits List
+ethereum: creating the base sniper
+chocolog: providing type.huge
+Edmond: offered tips for optimization
+
+it is very recommended to fork this and made your own config
+]]--
+
 local osclock = os.clock()
 if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 
 task.wait(15)
-
+game.Players.LocalPlayer.PlayerScripts.Scripts.Core["Idle Tracking"].Enabled = false
 game:GetService("RunService"):Set3dRenderingEnabled(false)
 local Booths_Broadcast = game:GetService("ReplicatedStorage").Network:WaitForChild("Booths_Broadcast")
 local Players = game:GetService('Players')
@@ -25,10 +34,10 @@ end)
 local function processListingInfo(uid, gems, item, version, shiny, amount, boughtFrom, boughtStatus, class, failMessage)
     local gemamount = Players.LocalPlayer.leaderstats["💎 Diamonds"].Value
     local snipeMessage =""
-    local weburl, webContent, webcolor
+    local weburl, webContent, webcolor, webStatus
     local versionVal = { [1] = "Golden ", [2] = "Rainbow " }
     local versionStr = versionVal[version] or (version == nil and "")
-    local mention = (string.find(item, "Huge") or string.find(item, "Titanic")) and "<@" .. userid .. ">" or ""
+    local mention = ( class == "Pet" and (Library.Directory.Pets[item].huge or Library.Directory.Pets[item].titanic)) and "<@" .. userid .. ">" or ""
 	
     if boughtStatus then
         webcolor = tonumber(0x00ff00)
@@ -84,6 +93,10 @@ local function processListingInfo(uid, gems, item, version, shiny, amount, bough
                         value = string.format("%s", tostring(gemamount):reverse():gsub("%d%d%d", "%1,"):reverse()),
                     },
                     {
+			name = "⌛ STATUS:",
+			value = failMessage,
+                    },
+                    {
 			name = "🚀 PING:",
 			value = math.round(Players.LocalPlayer:GetNetworkPing() * 2000) .. "ms",
                     },   
@@ -97,7 +110,7 @@ local function processListingInfo(uid, gems, item, version, shiny, amount, bough
 
     local jsonMessage = http:JSONEncode(message1)
     local success, webMessage = pcall(function()
-	  http:PostAsync(weburl, jsonMessage)
+	http:PostAsync(weburl, jsonMessage)
     end)
     if success == false then
         local response = request({
@@ -112,10 +125,14 @@ local function processListingInfo(uid, gems, item, version, shiny, amount, bough
 end
 
 local function tryPurchase(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
-    if buytimestamp > listTimestamp then
-      task.wait(3.4 - Players.LocalPlayer:GetNetworkPing())
-    end
-    local boughtPet, boughtMessage = game:GetService("ReplicatedStorage").Network.Booths_RequestPurchase:InvokeServer(playerid, uid)
+    signal = game:GetService("RunService").Heartbeat:Connect(function()
+	if buytimestamp < workspace:GetServerTimeNow() - Players.LocalPlayer:GetNetworkPing() then
+	    signal:Disconnect()
+	    signal = nil
+        end
+    end)
+    repeat task.wait() until signal == nil
+    local boughtPet, boughtMessage = rs.Network.Booths_RequestPurchase:InvokeServer(playerid, uid)
     processListingInfo(uid, gems, item, version, shiny, amount, username, boughtPet, class, boughtMessage)
 end
 
