@@ -228,6 +228,20 @@ local function jumpToServer()
     ts:TeleportToPlaceInstance(15502339080, servers[math.random(1, randomCount)], game:GetService("Players").LocalPlayer) 
 end
 
+local consecutiveHighPingCount = 0
+local maxConsecutiveHighPingCount = 30  -- Adjust as needed
+local pingThreshold = 500
+
+while consecutiveHighPingCount < maxConsecutiveHighPingCount do
+    local ping = math.round(Players.LocalPlayer:GetNetworkPing() * 2000)
+    if ping > pingThreshold then
+        consecutiveHighPingCount = consecutiveHighPingCount + 1
+   else
+        consecutiveHighPingCount = 0
+   end
+   task.wait(1)
+end
+
 if PlayerInServer < 25 then
     while true do
         jumpToServer()
