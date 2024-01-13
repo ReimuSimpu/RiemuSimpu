@@ -1,12 +1,3 @@
---[[
-Credits List
-ethereum: creating the base sniper
-chocolog: providing type.huge
-Edmond: offered tips for optimization
-
-it is very recommended to fork this and made your own config
-]]--
-
 local osclock = os.clock()
 if not game:IsLoaded() then
     game.Loaded:Wait()
@@ -184,6 +175,12 @@ Booths_Broadcast.OnClientEvent:Connect(function(username, message)
                     coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                     return
             	elseif item == "Crystal Key" and unitGems <= 10000 then
+                    coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
+                    return
+            	elseif item == "Crystal Key Lower Half" and unitGems <= 2500 then
+                    coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
+                    return
+            	elseif item == "Crystal Key Upper Half" and unitGems <= 5000 then
                     coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                     return
             	elseif item == "Spinny Wheel Ticket" and unitGems <= 5000 then
