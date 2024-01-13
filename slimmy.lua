@@ -239,7 +239,7 @@ while true do
         task.wait(1)
     end
 
-    task.wait(300)
+    task.wait(600)
 end
 
 if PlayerInServer < 25 then
