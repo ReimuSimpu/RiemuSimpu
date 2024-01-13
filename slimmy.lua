@@ -25,10 +25,10 @@ end)
 local function processListingInfo(uid, gems, item, version, shiny, amount, boughtFrom, boughtStatus, class, failMessage)
     local gemamount = Players.LocalPlayer.leaderstats["💎 Diamonds"].Value
     local snipeMessage =""
-    local weburl, webContent, webcolor, webStatus
+    local weburl, webContent, webcolor
     local versionVal = { [1] = "Golden ", [2] = "Rainbow " }
     local versionStr = versionVal[version] or (version == nil and "")
-    local mention = ( class == "Pet" and (Library.Directory.Pets[item].huge or Library.Directory.Pets[item].titanic)) and "<@" .. userid .. ">" or ""
+    local mention = (string.find(item, "Huge") or string.find(item, "Titanic")) and "<@" .. userid .. ">" or ""
 	
     if boughtStatus then
         webcolor = tonumber(0x00ff00)
@@ -116,14 +116,10 @@ local function processListingInfo(uid, gems, item, version, shiny, amount, bough
 end
 
 local function tryPurchase(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
-    signal = game:GetService("RunService").Heartbeat:Connect(function()
-	if buytimestamp < workspace:GetServerTimeNow() - Players.LocalPlayer:GetNetworkPing() then
-	    signal:Disconnect()
-	    signal = nil
-        end
-    end)
-    repeat task.wait() until signal == nil
-    local boughtPet, boughtMessage = rs.Network.Booths_RequestPurchase:InvokeServer(playerid, uid)
+    if buytimestamp > listTimestamp then
+      task.wait(3.4 - Players.LocalPlayer:GetNetworkPing())
+    end
+    local boughtPet, boughtMessage = game:GetService("ReplicatedStorage").Network.Booths_RequestPurchase:InvokeServer(playerid, uid)
     processListingInfo(uid, gems, item, version, shiny, amount, username, boughtPet, class, boughtMessage)
 end
 
@@ -177,10 +173,10 @@ Booths_Broadcast.OnClientEvent:Connect(function(username, message)
             	elseif item == "Crystal Key" and unitGems <= 10000 then
                     coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                     return
-            	elseif item == "Crystal Key Lower Half" and unitGems <= 2500 then
+            	elseif item == "Crystal Key Upper Half" and unitGems <= 5000 then
                     coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                     return
-            	elseif item == "Crystal Key Upper Half" and unitGems <= 5000 then
+            	elseif item == "Crystal Key Lower Half" and unitGems <= 2000 then
                     coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                     return
             	elseif item == "Spinny Wheel Ticket" and unitGems <= 5000 then
