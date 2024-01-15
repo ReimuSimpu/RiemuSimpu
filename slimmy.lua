@@ -266,12 +266,12 @@ end)
 
 local function jumpToServer() 
     local sfUrl = "https://games.roblox.com/v1/games/%s/servers/Public?sortOrder=%s&limit=%s&excludeFullGames=true" 
-    local req = request({ Url = string.format(sfUrl, 15502339080, "Desc", 100) }) 
+    local req = request({ Url = string.format(sfUrl, 15502339080, "Desc", 50) }) 
     local body = http:JSONDecode(req.Body) 
-    local deep = math.random(1, 2)
+    local deep = math.random(1, 3)
     if deep > 1 then 
         for i = 1, deep, 1 do 
-             req = request({ Url = string.format(sfUrl .. "&cursor=" .. body.nextPageCursor, 15502339080, "Desc", 100) }) 
+             req = request({ Url = string.format(sfUrl .. "&cursor=" .. body.nextPageCursor, 15502339080, "Desc", 50) }) 
              body = http:JSONDecode(req.Body) 
              task.wait(0.1)
         end 
@@ -291,13 +291,18 @@ local function jumpToServer()
     ts:TeleportToPlaceInstance(15502339080, servers[math.random(1, randomCount)], game:GetService("Players").LocalPlayer) 
 end
 
+if PlayerInServer < 30 then
+    while task.wait(10) do
+	jumpToServer()
+    end
+end
+
 for i = 1, PlayerInServer do
-    for ii = 1, #alts do
+   for ii = 1,#alts do
         if getPlayers[i].Name == alts[ii] and alts[ii] ~= Players.LocalPlayer.Name then
-            while true do
-                jumpToServer()
-                task.wait(10)
-            end
+            while task.wait(10) do
+		jumpToServer()
+	    end
         end
     end
 end
@@ -305,28 +310,25 @@ end
 Players.PlayerRemoving:Connect(function(player)
     getPlayers = Players:GetPlayers()
     PlayerInServer = #getPlayers
-    if PlayerInServer < 25 then
-        while true do
-            jumpToServer()
-            task.wait(10)
-        end
+    if PlayerInServer < 20 then
+        while task.wait(10) do
+	    jumpToServer()
+	end
     end
-end)
+end) 
 
 Players.PlayerAdded:Connect(function(player)
-    for i = 1, #alts do
+    for i = 1,#alts do
         if player.Name == alts[i] and alts[i] ~= Players.LocalPlayer.Name then
-            task.wait(math.random(0, 60))
-            while true do
-                jumpToServer()
-                task.wait(10)
-            end
+	    task.wait(math.random(0, 60))
+            while task.wait(10) do
+	        jumpToServer()
+	    end
         end
     end
-end)
+end) 
 
-
-local hopDelay = math.random(10000, 20000)
+local hopDelay = math.random(1800, 3600)
 
 while task.wait(1) do
     if math.floor(os.clock() - osclock) >= hopDelay then
