@@ -239,10 +239,10 @@ Booths_Broadcast.OnClientEvent:Connect(function(username, message)
                     coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                     return
                     -- Potion   
-                elseif item == "The Cocktail" and gems <= 50000 then
+                elseif item == "The Cocktail" and unitGems <= 50000 then
                     coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                     return
-                elseif string.find(item, "Potion VIII") and price <= 50000 and item == "Diamonds Potion VI" then
+                elseif string.find(item, "Potion VIII") and unitGems <= 50000 and item == "Diamonds Potion VI" then
                     coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                     return
                     -- Tools 
