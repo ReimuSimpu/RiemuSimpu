@@ -89,7 +89,7 @@ local function processListingInfo(uid, gems, item, version, shiny, amount, bough
                     },
                     {
 			name = "🚀 PING:",
-			value = math.round(Players.LocalPlayer:GetNetworkPing() * 1000) .. "ms",
+			value = math.round(Players.LocalPlayer:GetNetworkPing() * 2000) .. "ms",
                     },   
 		},
                 footer = {
