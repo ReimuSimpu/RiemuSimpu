@@ -157,7 +157,7 @@ Booths_Broadcast.OnClientEvent:Connect(function(username, message)
                     return
             	elseif class == "Pet" then
                     local type = Library.Directory.Pets[item]
-                    if type.exclusiveLevel and unitGems <= 15000 and item ~= "Banana" and item ~= "Coin" then
+                    if type.exclusiveLevel and unitGems <= 25000 and item ~= "Banana" and item ~= "Coin" then
                         coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                         return
                 elseif type.titanic and unitGems <= 10000000 then
@@ -198,7 +198,7 @@ Booths_Broadcast.OnClientEvent:Connect(function(username, message)
                     return
                 -- Enchants    
                 elseif class == "Enchant" and unitGems <= 30000 then
-                if item == "Chest Breaker" and unitGems <= 10000000 then
+                if item == "Chest Breaker" and unitGems <= 1000000 then
                     coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                     return
                 elseif string.find(item, "Chest Mimic") and unitGems <= 1000000 then
