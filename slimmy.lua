@@ -178,7 +178,7 @@ Booths_Broadcast.OnClientEvent:Connect(function(username, message)
                 elseif item == "Crystal Key" and unitGems <= 10000 then
                     coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                     return
-                elseif item == "Crystal Key Lower Half" and unitGems <= 3000 then
+                elseif item == "Crystal Key Lower Half" and unitGems <= 2000 then
                     coroutine.wrap(tryPurchase)(uid, gems, item, version, shiny, amount, username, class, playerid, buytimestamp, listTimestamp)
                     return
                 elseif item == "Crystal Key Upper Half" and unitGems <= 5000 then
